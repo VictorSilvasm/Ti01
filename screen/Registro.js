@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
-import { StyleSheet} from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body,Button,Item, Icon,Input } from 'native-base';
+import {Container,
+        Content,
+        Card,
+        CardItem,
+        Text,
+        Body,
+        Button,
+        Item,
+        Icon,
+        Input} from 'native-base';
+
+import {StyleSheet} from 'react-native';
+import api from '../data/api';
 
 class Registro extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      nombre:'',
+      user:'',
+      correo:'',
+      pass:''
+    }
+  }
+
+  register = () => api.registerData(this.state.nombre,this.state.user,this.state.correo,this.state.pass);
 render(){
-  const navegar = this.props.navegation;
+
+  const navegar=this.props.navigation;
+
   return (
     <Container>
-        <Header />
         <Content padder contentContainerStyle ={misEstilos.content}>
           <Card>
             <CardItem header bordered>
@@ -16,41 +39,37 @@ render(){
             <CardItem>
             <Icon type = 'Ionicons' name = 'logo-facebook'></Icon>
               <Button primary style={misEstilos.boton2}><Text>Facebook</Text></Button>
-              <Icon type = 'FontAwesome' name = 'twitter'></Icon>
-              <Button info style={misEstilos.boton2}><Text>Twitter</Text></Button>
+              <Icon type = 'AntDesign' name = 'googleplus'></Icon>
+              <Button danger style={misEstilos.boton2}><Text>Google</Text></Button>
             </CardItem>
             
             <CardItem bordered>
               <Body>
                 <Item inlineLabel>
                     <Icon type = 'FontAwesome' name = 'user'></Icon>
-                    <Input placeholder='Nombre' />
-                </Item>
-                <Item inlineLabel>
-                    <Icon type = 'FontAwesome' name = 'user'></Icon>
-                    <Input placeholder='Apellido' />
+                    <Input placeholder='Nombre' 
+                    onChangeText={(nombre) => this.setState({nombre})}/>
                 </Item>
                 <Item inlineLabel>
                   <Icon type = 'FontAwesome' name = 'user'></Icon>
-                  <Input placeholder='Nombre de usuario' />
+                  <Input placeholder='Nombre de usuario'
+                  onChangeText={(user) => this.setState({user})} />
                 </Item>
                 <Item inlineLabel last>
                   <Icon type = 'MaterialCommunityIcons' name = 'email-open'></Icon>
-                  <Input type='email' placeholder='Correo' />
+                  <Input type='email' placeholder='Correo' 
+                  onChangeText={(correo) => this.setState({correo})} />
                 </Item>
                 <Item inlineLabel last>
                   <Icon type = 'FontAwesome' name = 'lock'></Icon>
-                  <Input placeholder='Contraseña' />
+                  <Input placeholder='Contraseña' 
+                  onChangeText={(pass) => this.setState({pass})} secureTextEntry={true} />
                 </Item>
               </Body>
             </CardItem>
             <CardItem footer bordered>
-              <Button primary style={misEstilos.boton}><Text> Registrar </Text></Button>
-            </CardItem>
-            <CardItem style={misEstilos.boton2}>
-              <Item inlineLabel last>
-                
-              </Item>
+              <Button primary style={misEstilos.boton3} onPress={() => {navegar.navigate('Login');}}><Text>Login</Text></Button>
+              <Button primary style={misEstilos.boton} onPress={this.register}><Text> Registrar </Text></Button>
             </CardItem>
           </Card>
         </Content>
@@ -73,6 +92,9 @@ const misEstilos = StyleSheet.create({
   },
   boton2 : {
     margin: '0%',
+  },
+  boton3:{
+    marginLeft: '5%',
   },
 });
 

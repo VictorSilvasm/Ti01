@@ -9,7 +9,7 @@ class Principal extends Component{
     super(props);
 
     this.state = {
-      isLoading : true,
+      //isLoading : true,
     }
   }// end  constructor
   //lo que esta aquí se ejecuta 
